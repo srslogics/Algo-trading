@@ -1,0 +1,12 @@
+{
+  "name": "optionlab-dashboard",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/ui.test.mjs",
+    "check": "node --check src/optionlab/web/app.js"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}

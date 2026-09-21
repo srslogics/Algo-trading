@@ -1,0 +1,42 @@
+# Render Blueprint: one private-operator paper workspace and a persistent database.
+# These are paid plans; review Render's displayed price before approving creation.
+services:
+  - type: web
+    name: optionlab
+    runtime: docker
+    plan: 0.5c-512mb
+    region: singapore
+    numInstances: 1
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    preDeployCommand: alembic upgrade head
+    healthCheckPath: /healthz
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: optionlab-db
+          property: connectionString
+      - key: OPTIONLAB_ENVIRONMENT
+        value: render
+      - key: OPTIONLAB_AUTH_REQUIRED
+        value: "true"
+      - key: OPTIONLAB_API_TOKEN
+        generateValue: true
+      - key: OPTIONLAB_EXECUTION_MODE
+        value: paper
+      - key: OPTIONLAB_DATA_SOURCE
+        value: DEMO
+      - key: OPTIONLAB_DEMO_ENABLED
+        value: "true"
+      - key: OPTIONLAB_AI_PROVIDER
+        value: offline
+      - key: OPTIONLAB_SESSION_HOURS
+        value: "8"
+# RENDER_EXTERNAL_URL and PORT are supplied by Render at runtime.
+databases:
+  - name: optionlab-db
+    plan: 0.1c-256mb
+    region: singapore
+    postgresMajorVersion: "17"
+    diskSizeGB: 5
+    ipAllowList: []

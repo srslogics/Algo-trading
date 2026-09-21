@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: optionlab
+      POSTGRES_USER: optionlab
+      POSTGRES_PASSWORD: ${OPTIONLAB_DB_PASSWORD:?Set OPTIONLAB_DB_PASSWORD in .env}
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U optionlab"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  migrate:
+    build: .
+    command: [alembic, upgrade, head]
+    environment: &app-env
+      OPTIONLAB_DATABASE_URL: postgresql+psycopg://optionlab:${OPTIONLAB_DB_PASSWORD}@db/optionlab
+      OPTIONLAB_AUTH_REQUIRED: "true"
+      OPTIONLAB_API_TOKEN: ${OPTIONLAB_API_TOKEN:?Set a random 32+ character API token in .env}
+    depends_on:
+      db:
+        condition: service_healthy
+  api:
+    build: .
+    environment: *app-env
+    ports: ["127.0.0.1:8000:8000"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+volumes:
+  database:

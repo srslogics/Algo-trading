@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#182722" />
+    <meta
+      name="description"
+      content="OptionLab — a considered workspace for Indian options research and paper trading."
+    />
+    <title>OptionLab — Research workspace</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/styles.css?v=2" />
+    <script type="module" src="/static/app.js?v=2"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to workspace</a>
+    <div class="mobile-scrim" id="mobile-scrim" hidden></div>
+    <aside class="sidebar" id="sidebar" aria-label="Workspace navigation">
+      <a href="#overview" class="brand" aria-label="OptionLab home"
+        ><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span
+        ><span>OptionLab<span class="brand-period">.</span></span></a
+      >
+      <div class="workspace-switch">
+        <span class="workspace-avatar">O</span>
+        <div>
+          <strong>Research workspace</strong
+          ><small>Personal · Paper account</small>
+        </div>
+      </div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav id="main-nav">
+        <a href="#overview" data-nav="overview"
+          ><span class="icon" data-icon="grid"></span>Overview</a
+        >
+        <a href="#market" data-nav="market"
+          ><span class="icon" data-icon="chart"></span>Markets<span
+            class="nav-note"
+            >NFO</span
+          ></a
+        >
+        <a href="#proposals" data-nav="proposals"
+          ><span class="icon" data-icon="layers"></span>Trade proposals<span
+            id="proposal-count"
+            class="nav-count"
+            >0</span
+          ></a
+        >
+        <a href="#portfolio" data-nav="portfolio"
+          ><span class="icon" data-icon="briefcase"></span>Portfolio</a
+        >
+        <a href="#agents" data-nav="agents"
+          ><span class="icon" data-icon="sparkle"></span>AI workspace<span
+            class="nav-note"
+            >04</span
+          ></a
+        >
+        <a href="#backtest" data-nav="backtest"
+          ><span class="icon" data-icon="flask"></span>Backtesting</a
+        >
+        <a href="#activity" data-nav="activity"
+          ><span class="icon" data-icon="activity"></span>Activity</a
+        >
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="paper-card">
+          <span class="icon" data-icon="shield"></span
+          ><strong>Room to explore.</strong>
+          <p>
+            Real controls. Simulated capital.<br />Your research starts here.
+          </p>
+          <span class="paper-label"><i></i> PAPER ENVIRONMENT</span>
+        </div>
+        <button id="theme-toggle" class="sidebar-control">
+          <span class="icon" data-icon="moon"></span
+          ><span id="theme-label">Dark appearance</span>
+        </button>
+        <button class="sidebar-control" data-action="settings">
+          <span class="icon" data-icon="settings"></span>Workspace settings
+        </button>
+        <div class="sidebar-footer">
+          <span class="avatar">OL</span>
+          <div>
+            <strong>Workspace operator</strong
+            ><small id="session-label">Local session</small>
+          </div>
+          <span class="connection-dot" id="sidebar-dot"></span>
+        </div>
+      </div>
+    </aside>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button
+            id="mobile-menu"
+            class="icon-button mobile-menu"
+            aria-label="Open navigation"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span class="icon" data-icon="menu"></span></button
+          ><span class="breadcrumb-root">Workspace</span
+          ><span class="breadcrumb-slash">/</span
+          ><strong id="breadcrumb-current">Overview</strong>
+        </div>
+        <div class="topbar-right">
+          <button id="search-open" class="search-button">
+            <span class="icon" data-icon="search"></span
+            ><span>Quick navigation</span><kbd>⌘ K</kbd></button
+          ><span class="topbar-divider"></span
+          ><span class="badge paper"><i></i>Paper trading</span
+          ><button
+            class="icon-button"
+            data-route="activity"
+            aria-label="Open activity and notifications"
+          >
+            <span class="icon" data-icon="bell"></span></button
+          ><button
+            class="avatar-button"
+            data-action="settings"
+            aria-label="Workspace settings"
+          >
+            OL
+          </button>
+        </div>
+      </header>
+      <main id="main" tabindex="-1">
+        <div
+          id="connection-banner"
+          class="connection-banner"
+          role="alert"
+          hidden
+        >
+          <span class="icon" data-icon="wifi-off"></span>
+          <div>
+            <strong id="connection-error">Connection interrupted</strong
+            ><span id="connection-help"
+              >The values below may be out of date.</span
+            >
+          </div>
+          <button class="button small" data-action="retry">Try again</button>
+        </div>
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow" id="page-eyebrow">
+              YOUR WORKSPACE, AT A GLANCE
+            </div>
+            <h1 id="page-title" tabindex="-1">Market overview<span>.</span></h1>
+            <p id="page-description">
+              A considered view of your market, research, and paper portfolio.
+            </p>
+          </div>
+          <div class="heading-actions">
+            <span class="date-label" id="today"></span
+            ><button class="button" id="refresh" data-action="refresh">
+              <span class="icon" data-icon="refresh"></span>Refresh</button
+            ><button
+              class="button primary"
+              id="page-primary"
+              data-action="new-proposal"
+            >
+              <span class="icon" data-icon="plus"></span>New proposal
+            </button>
+          </div>
+        </div>
+        <div class="environment-strip">
+          <span class="icon" data-icon="shield"></span>
+          <p>
+            <strong id="environment-title">A workspace for practice.</strong>
+            <span id="source-note"
+              >Sample data. Simulated funds. No live orders.</span
+            >
+          </p>
+          <button class="strip-link" data-action="demo" id="strip-demo">
+            Update sample market <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+        <section class="page" data-page="overview" aria-label="Overview">
+          <div class="metrics">
+            <article class="metric">
+              <div class="metric-label">
+                Paper equity<span class="icon" data-icon="wallet"></span>
+              </div>
+              <strong id="equity">—</strong>
+              <div class="metric-bottom">
+                <span id="equity-change" class="value-note"
+                  >Waiting for account</span
+                ><span>vs. starting capital</span>
+              </div>
+            </article>
+            <article class="metric">
+              <div class="metric-label">
+                Available cash<span class="icon" data-icon="coins"></span>
+              </div>
+              <strong id="cash">—</strong>
+              <div class="metric-bottom">
+                <span id="cash-percent">—</span
+                ><span>of paper equity available</span>
+              </div>
+            </article>
+            <article class="metric">
+              <div class="metric-label">
+                Unrealized P&L<span class="icon" data-icon="trend"></span>
+              </div>
+              <strong id="pnl">—</strong>
+              <div class="metric-bottom">
+                <span id="position-count">—</span
+                ><span id="mark-status">net of entry fees</span>
+              </div>
+            </article>
+            <article class="metric risk-metric">
+              <div class="metric-label">
+                Entry controls<span class="icon" data-icon="shield"></span>
+              </div>
+              <strong id="risk-status">—</strong>
+              <div class="metric-bottom">
+                <span class="status-dot"></span
+                ><span id="risk-caption">Deterministic risk checks</span>
+              </div>
+            </article>
+          </div>
+          <div class="overview-grid">
+            <article class="panel market-panel">
+              <div class="panel-header">
+                <div>
+                  <div class="eyebrow">UNDERLYING · NIFTY 50</div>
+                  <div class="market-price">
+                    <strong id="spot">—</strong
+                    ><span id="spot-change" class="market-change"
+                      >No snapshot</span
+                    >
+                  </div>
+                </div>
+                <span id="data-status" class="badge dark">Awaiting data</span>
+              </div>
+              <div class="chart-tabs">
+                <span>Stored observations</span>
+                <div class="segmented dark" aria-label="Chart range">
+                  <button data-range="30">30 ticks</button
+                  ><button data-range="120" aria-pressed="true">
+                    120 ticks
+                  </button>
+                </div>
+              </div>
+              <div id="market-chart" class="market-chart">
+                <div class="chart-placeholder">
+                  <span class="icon" data-icon="chart"></span
+                  ><strong>Your market, in view.</strong
+                  ><span
+                    >Load a sample tick to start a recorded price series.</span
+                  >
+                </div>
+              </div>
+              <div class="chart-footer">
+                <span id="as-of">No stored data yet</span
+                ><span id="chart-source">Illustrative market data</span>
+              </div>
+            </article>
+            <article class="panel readiness-panel">
+              <div class="panel-header">
+                <div>
+                  <span class="eyebrow">BEFORE THE NEXT TRADE</span>
+                  <h2>A measured approach.</h2>
+                </div>
+                <span class="icon feature-icon" data-icon="compass"></span>
+              </div>
+              <div class="readiness-list">
+                <div>
+                  <span class="readiness-icon" data-icon="database"></span>
+                  <div>
+                    <strong>Market data</strong
+                    ><small id="ready-data">Waiting for a snapshot</small>
+                  </div>
+                  <span id="ready-data-status" class="mini-status">—</span>
+                </div>
+                <div>
+                  <span class="readiness-icon" data-icon="shield"></span>
+                  <div>
+                    <strong>Risk controls</strong
+                    ><small id="ready-risk"
+                      >Limits checked before every fill</small
+                    >
+                  </div>
+                  <span id="ready-risk-status" class="mini-status">—</span>
+                </div>
+                <div>
+                  <span class="readiness-icon" data-icon="sparkle"></span>
+                  <div>
+                    <strong>Advisory workspace</strong
+                    ><small id="ready-ai">Four specialist roles</small>
+                  </div>
+                  <span class="mini-status">04</span>
+                </div>
+              </div>
+              <div class="allocation">
+                <div>
+                  <span>Open premium exposure</span
+                  ><strong id="exposure-label">—</strong>
+                </div>
+                <progress
+                  id="exposure-progress"
+                  max="100"
+                  value="0"
+                  aria-label="Open premium exposure"
+                ></progress
+                ><small id="exposure-limit"
+                  >Within your configured paper budget</small
+                >
+              </div>
+              <button class="button primary full" data-route="proposals">
+                Visit strategy desk
+                <span class="icon" data-icon="arrow-right"></span>
+              </button>
+            </article>
+          </div>
+          <div class="overview-bottom">
+            <article class="panel">
+              <div class="panel-header">
+                <div>
+                  <span class="eyebrow">YOUR NEXT DECISION</span>
+                  <h2>Recent proposals</h2>
+                </div>
+                <a class="text-link" href="#proposals"
+                  >View all <span aria-hidden="true">↗</span></a
+                >
+              </div>
+              <div id="recent-proposals" class="compact-list"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-header">
+                <div>
+                  <span class="eyebrow">A RECORD OF EVERY STEP</span>
+                  <h2>Workspace activity</h2>
+                </div>
+                <a class="text-link" href="#activity"
+                  >View activity <span aria-hidden="true">↗</span></a
+                >
+              </div>
+              <div id="recent-activity" class="compact-list"></div>
+            </article>
+          </div>
+          <div class="advisory-footer">
+            <span class="icon" data-icon="sparkle"></span>
+            <p>
+              <strong>Four perspectives. One clear boundary.</strong> Research,
+              analyze, reason, and ask. AI explains; deterministic rules control
+              execution.
+            </p>
+            <a href="#agents"
+              >Meet your agents <span aria-hidden="true">↗</span></a
+            >
+          </div>
+        </section>
+        <section
+          class="page"
+          data-page="market"
+          aria-label="Option chain"
+          hidden
+        >
+          <div class="market-toolbar">
+            <div class="toolbar-group">
+              <label for="underlying">Underlying</label
+              ><select id="underlying">
+                <option value="NIFTY">NIFTY 50</option>
+                <option value="BANKNIFTY">BANK NIFTY</option></select
+              ><label for="expiry">Expiry</label
+              ><select id="expiry">
+                <option value="all">All expiries</option>
+              </select>
+            </div>
+            <div class="toolbar-group">
+              <div class="segmented" aria-label="Option type">
+                <button data-type="all" aria-pressed="true">All options</button
+                ><button data-type="CE">Calls</button
+                ><button data-type="PE">Puts</button>
+              </div>
+              <button class="button" data-action="export-chain">
+                <span class="icon" data-icon="download"></span>Export
+              </button>
+            </div>
+          </div>
+          <div class="chain-stats">
+            <div><span>Underlying</span><strong id="chain-spot">—</strong></div>
+            <div>
+              <span>Put / call OI ratio</span><strong id="pcr">—</strong>
+            </div>
+            <div>
+              <span>Average inferred IV</span><strong id="chain-iv">—</strong>
+            </div>
+            <div>
+              <span>Snapshot status</span
+              ><strong id="chain-freshness">—</strong>
+            </div>
+          </div>
+          <article class="panel">
+            <div class="panel-header">
+              <div>
+                <span class="eyebrow" id="chain-source">OPTIONS · NFO</span>
+                <h2>Option chain</h2>
+              </div>
+              <label class="input-search"
+                ><span class="icon" data-icon="search"></span
+                ><input
+                  id="chain-search"
+                  type="search"
+                  aria-label="Filter option chain"
+                  placeholder="Search strike or contract…"
+              /></label>
+            </div>
+            <div
+              class="table-scroll"
+              tabindex="0"
+              aria-label="Scrollable option chain"
+            >
+              <table>
+                <thead>
+                  <tr>
+                    <th>Strike / expiry</th>
+                    <th>Type</th>
+                    <th>Bid</th>
+                    <th>Ask</th>
+                    <th>IV</th>
+                    <th>Delta</th>
+                    <th>Gamma</th>
+                    <th>Theta / day</th>
+                    <th>Vega / 1%</th>
+                    <th>Open interest</th>
+                  </tr>
+                </thead>
+                <tbody id="chain"></tbody>
+              </table>
+            </div>
+            <div class="panel-foot">
+              <span id="chain-count">No contracts loaded</span
+              ><span
+                >Black–Scholes · Zero dividend yield · Estimated Greeks</span
+              >
+            </div>
+          </article>
+        </section>
+        <section
+          class="page"
+          data-page="proposals"
+          aria-label="Trade proposals"
+          hidden
+        >
+          <div class="section-toolbar">
+            <div class="segmented" aria-label="Proposal status">
+              <button data-proposal-filter="all" aria-pressed="true">
+                All proposals</button
+              ><button data-proposal-filter="pending">Pending</button
+              ><button data-proposal-filter="filled">Filled</button
+              ><button data-proposal-filter="expired">Expired</button>
+            </div>
+            <span class="subtle">Momentum long option · v1</span>
+          </div>
+          <div id="proposal-gate" class="inline-notice"></div>
+          <div id="proposal-list" class="proposal-list"></div>
+        </section>
+        <section
+          class="page"
+          data-page="portfolio"
+          aria-label="Paper portfolio"
+          hidden
+        >
+          <div class="section-toolbar">
+            <div class="segmented" aria-label="Position status">
+              <button data-position-filter="OPEN" aria-pressed="true">
+                Open positions</button
+              ><button data-position-filter="CLOSED">Closed</button
+              ><button data-position-filter="all">All positions</button>
+            </div>
+            <div class="toolbar-group">
+              <button class="button" data-action="export-orders">
+                <span class="icon" data-icon="download"></span>Export orders</button
+              ><button class="button" data-action="monitor">
+                <span class="icon" data-icon="refresh"></span>Check exits
+              </button>
+            </div>
+          </div>
+          <article class="panel">
+            <div class="panel-header">
+              <div>
+                <span class="eyebrow">YOUR SIMULATED HOLDINGS</span>
+                <h2>Positions</h2>
+              </div>
+              <span class="badge">Paper only</span>
+            </div>
+            <div
+              class="table-scroll"
+              tabindex="0"
+              aria-label="Scrollable positions"
+            >
+              <table>
+                <thead>
+                  <tr>
+                    <th>Instrument</th>
+                    <th>Quantity</th>
+                    <th>Entry price</th>
+                    <th>Mark price</th>
+                    <th>Net P&L</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="positions"></tbody>
+              </table>
+            </div>
+            <div class="panel-foot">
+              Open P&L includes entry fees. Closed P&L includes entry and exit
+              fees. Marks use the bid.
+            </div>
+          </article>
+          <article class="panel">
+            <div class="panel-header">
+              <div>
+                <span class="eyebrow">EXECUTION HISTORY</span>
+                <h2>Order ledger</h2>
+              </div>
+              <span id="order-count" class="subtle"></span>
+            </div>
+            <div
+              class="table-scroll"
+              tabindex="0"
+              aria-label="Scrollable order ledger"
+            >
+              <table>
+                <thead>
+                  <tr>
+                    <th>Instrument / time</th>
+                    <th>Side</th>
+                    <th>Quantity</th>
+                    <th>Fill price</th>
+                    <th>Fee</th>
+                    <th>Reason</th>
+                  </tr>
+                </thead>
+                <tbody id="orders"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+        <section
+          class="page"
+          data-page="agents"
+          aria-label="Advisory agents"
+          hidden
+        >
+          <div class="advisory-notice">
+            <span class="icon" data-icon="sparkle"></span>
+            <div>
+              <strong id="ai-mode">Offline summaries</strong>
+              <p id="ai-explanation">
+                Four bounded advisory roles. No model is connected; summaries
+                use supplied workspace data.
+              </p>
+            </div>
+            <span class="badge">Advisory only</span>
+          </div>
+          <div id="agent-cards" class="agent-grid"></div>
+          <article class="panel conversation-panel">
+            <div class="panel-header">
+              <div>
+                <span class="eyebrow" id="conversation-eyebrow"
+                  >TRADING ASSISTANT</span
+                >
+                <h2 id="conversation-title">A second perspective.</h2>
+              </div>
+              <span class="badge">No execution authority</span>
+            </div>
+            <div
+              id="conversation"
+              class="conversation"
+              aria-live="polite"
+            ></div>
+            <div class="suggested-prompts">
+              <button
+                data-prompt="Explain my paper portfolio and available cash."
+              >
+                Review my portfolio</button
+              ><button
+                data-prompt="Explain the current option chain and volatility estimates."
+              >
+                Explain the option chain</button
+              ><button
+                data-prompt="Explain the latest proposal and its risk controls."
+              >
+                Review a proposal
+              </button>
+            </div>
+            <form id="chat-form" class="chat-form">
+              <label class="sr-only" for="question"
+                >Ask the selected agent</label
+              ><textarea
+                id="question"
+                rows="2"
+                maxlength="2000"
+                placeholder="Ask a question about the current workspace…"
+                required
+              ></textarea>
+              <div>
+                <span id="chat-context">Workspace context is read-only</span
+                ><button
+                  class="button primary"
+                  id="send-question"
+                  type="submit"
+                >
+                  Send question <span class="icon" data-icon="arrow-up"></span>
+                </button>
+              </div>
+            </form>
+          </article>
+        </section>
+        <section
+          class="page"
+          data-page="backtest"
+          aria-label="Historical replay"
+          hidden
+        >
+          <div class="backtest-intro">
+            <div class="backtest-symbol">
+              <span class="icon" data-icon="flask"></span>
+            </div>
+            <div>
+              <span class="eyebrow">RESEARCH BEFORE RISK</span>
+              <h2>Put the process to the test.</h2>
+              <p>
+                A 90-observation sample replay using the same strategy and entry
+                controls. Signals can fill only on the next observation.
+              </p>
+            </div>
+            <button
+              class="button primary"
+              data-action="backtest"
+              id="run-backtest"
+            >
+              Run sample backtest
+              <span class="icon" data-icon="arrow-right"></span>
+            </button>
+          </div>
+          <div class="section-toolbar">
+            <label class="toolbar-group" for="backtest-select"
+              ><span class="subtle">Saved runs</span
+              ><select id="backtest-select">
+                <option value="">No runs yet</option>
+              </select></label
+            ><button class="button" data-action="export-backtest">
+              <span class="icon" data-icon="download"></span>Download report
+            </button>
+          </div>
+          <div id="backtest-result"></div>
+        </section>
+        <section
+          class="page"
+          data-page="activity"
+          aria-label="Activity and audit"
+          hidden
+        >
+          <div class="activity-grid">
+            <article class="panel">
+              <div class="panel-header">
+                <div>
+                  <span class="eyebrow">EVERY ACTION, ACCOUNTED FOR</span>
+                  <h2>Audit trail</h2>
+                </div>
+                <select id="audit-filter" aria-label="Filter audit events">
+                  <option value="all">All events</option>
+                  <option value="paper">Paper trades</option>
+                  <option value="risk">Risk controls</option>
+                  <option value="market">Market data</option>
+                  <option value="agent">AI workspace</option>
+                  <option value="backtest">Backtests</option>
+                  <option value="monitor">Monitoring</option>
+                </select>
+              </div>
+              <div id="audit-list" class="audit-list"></div>
+              <div class="panel-foot">
+                <span id="audit-count">Latest events</span
+                ><button
+                  class="text-link"
+                  id="older-events"
+                  data-action="older-events"
+                >
+                  Load older events
+                </button>
+              </div>
+            </article>
+            <article class="panel inbox-panel">
+              <div class="panel-header">
+                <div>
+                  <span class="eyebrow">WORKSPACE INBOX</span>
+                  <h2>Notifications</h2>
+                </div>
+                <span class="icon" data-icon="bell"></span>
+              </div>
+              <div id="notifications" class="notification-list"></div>
+            </article>
+          </div>
+        </section>
+        <footer class="workspace-footer">
+          <span
+            ><i class="connection-dot" id="footer-dot"></i
+            ><span id="connection">Connecting to workspace…</span></span
+          ><span id="last-sync">—</span
+          ><span
+            >OptionLab <b>v0.2</b><span class="footer-separator">/</span>All
+            times in IST</span
+          >
+        </footer>
+      </main>
+    </div>
+    <div
+      id="toast-stack"
+      class="toast-stack"
+      aria-live="polite"
+      aria-atomic="false"
+    ></div>
+    <dialog
+      id="auth-dialog"
+      class="modal auth-modal"
+      aria-labelledby="auth-title"
+    >
+      <form id="auth-form">
+        <span class="modal-emblem" data-icon="lock"></span
+        ><span class="eyebrow">YOUR PRIVATE WORKSPACE</span>
+        <h2 id="auth-title">Welcome to OptionLab.</h2>
+        <p>
+          Enter your workspace access key to continue. Your browser session
+          stays signed in for the configured session duration.
+        </p>
+        <label for="api-token">Workspace access key</label
+        ><input
+          type="password"
+          id="api-token"
+          autocomplete="current-password"
+          placeholder="Enter your access key"
+          required
+        />
+        <p class="form-error" id="auth-error" role="alert" hidden></p>
+        <button class="button primary full" id="auth-submit" type="submit">
+          Open workspace
+          <span class="icon" data-icon="arrow-right"></span></button
+        ><small>Your access key is never stored in browser storage.</small>
+      </form>
+    </dialog>
+    <dialog id="demo-dialog" class="modal" aria-labelledby="demo-title">
+      <form id="demo-form">
+        <div class="modal-top">
+          <span class="eyebrow">SAMPLE MARKET</span
+          ><button
+            type="button"
+            class="icon-button"
+            data-dismiss="demo-dialog"
+            aria-label="Close sample market"
+          >
+            <span class="icon" data-icon="x"></span>
+          </button>
+        </div>
+        <h2 id="demo-title">Explore a market scenario.</h2>
+        <p>
+          Set an illustrative NIFTY spot price. This refreshes the sample option
+          chain and checks exit rules for open paper positions.
+        </p>
+        <label for="demo-spot">NIFTY sample spot</label>
+        <div class="currency-input">
+          <span>₹</span
+          ><input
+            id="demo-spot"
+            type="number"
+            value="24870"
+            min="20000"
+            max="30000"
+            step="0.01"
+            required
+          />
+        </div>
+        <div class="preset-buttons">
+          <button type="button" data-spot="24400">Bearish · 24,400</button
+          ><button type="button" data-spot="24870">Base · 24,870</button
+          ><button type="button" data-spot="25200">Bullish · 25,200</button>
+        </div>
+        <p class="form-error" id="demo-error" role="alert" hidden></p>
+        <div class="modal-note">
+          Fictional contracts and sample prices. Never used for live execution.
+        </div>
+        <button class="button primary full" id="load-demo" type="submit">
+          Update sample market
+          <span class="icon" data-icon="arrow-right"></span>
+        </button>
+      </form>
+    </dialog>
+    <dialog
+      id="review-dialog"
+      class="modal review-modal"
+      aria-labelledby="review-title"
+    >
+      <div class="modal-top">
+        <span class="eyebrow">PAPER EXECUTION</span
+        ><button
+          class="icon-button"
+          data-dismiss="review-dialog"
+          aria-label="Close order review"
+        >
+          <span class="icon" data-icon="x"></span>
+        </button>
+      </div>
+      <h2 id="review-title">Review your paper order.</h2>
+      <div id="review-content"></div>
+      <p class="form-error" id="review-error" role="alert" hidden></p>
+      <div class="dialog-actions">
+        <button class="button" data-dismiss="review-dialog">Cancel</button
+        ><button class="button primary" id="confirm-order">
+          Confirm paper order
+        </button>
+      </div>
+    </dialog>
+    <dialog id="settings-dialog" class="modal" aria-labelledby="settings-title">
+      <div class="modal-top">
+        <span class="eyebrow">WORKSPACE SETTINGS</span
+        ><button
+          class="icon-button"
+          data-dismiss="settings-dialog"
+          aria-label="Close settings"
+        >
+          <span class="icon" data-icon="x"></span>
+        </button>
+      </div>
+      <h2 id="settings-title">Your operating boundaries.</h2>
+      <p>These limits are enforced by the backend on every paper entry.</p>
+      <dl id="settings-limits" class="definition-list"></dl>
+      <div class="setting-row">
+        <div>
+          <strong>Pause new entries</strong
+          ><small>Open positions can still exit.</small>
+        </div>
+        <button
+          id="kill-switch"
+          role="switch"
+          aria-checked="false"
+          class="switch"
+          aria-label="Pause new entries"
+        ></button>
+      </div>
+      <div class="settings-links">
+        <a href="/docs" target="_blank" rel="noreferrer">API documentation ↗</a
+        ><button id="sign-out" class="text-link" hidden>Sign out</button>
+      </div>
+    </dialog>
+    <dialog
+      id="search-dialog"
+      class="modal search-modal"
+      aria-labelledby="search-title"
+    >
+      <div class="modal-top">
+        <h2 id="search-title">Quick navigation</h2>
+        <button
+          class="icon-button"
+          data-dismiss="search-dialog"
+          aria-label="Close navigation search"
+        >
+          <span class="icon" data-icon="x"></span>
+        </button>
+      </div>
+      <label class="input-search"
+        ><span class="icon" data-icon="search"></span
+        ><input
+          id="quick-search"
+          type="search"
+          placeholder="Search pages…"
+          aria-label="Search workspace pages"
+      /></label>
+      <div id="search-results"></div>
+      <small>Tip: use ⌘ K or Ctrl K from anywhere.</small>
+    </dialog>
+    <noscript
+      ><div class="no-script">
+        Please enable JavaScript to use the OptionLab workspace.
+      </div></noscript
+    >
+  </body>
+</html>
