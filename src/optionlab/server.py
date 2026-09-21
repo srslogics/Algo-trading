@@ -3,12 +3,19 @@
 import os
 
 import uvicorn
+from alembic import command
+from alembic.config import Config
 
 
 def main():
     port = int(os.environ.get("PORT", "8000"))
     if not 1 <= port <= 65535:
         raise ValueError("PORT must be between 1 and 65535")
+    # The Docker entry point also supports manual Render services without a pre-deploy hook.
+    # Apply versioned migrations before importing/starting the application; fail closed on error.
+    print("Applying database migrations before startup...", flush=True)
+    command.upgrade(Config("alembic.ini"), "head")
+    print("Database migrations complete. Starting OptionLab.", flush=True)
     uvicorn.run(
         "optionlab.api.app:create_app",
         factory=True,

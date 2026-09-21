@@ -32,7 +32,7 @@ Never point sample and real-data collectors at the same database. Changing `DATA
 
 ## Daily local use
 
-Run migrations before starting the API. Use one API worker in this release. The web process runs the exit monitor every five seconds, and every accepted snapshot also invokes monitoring. The browser refreshes state every ten seconds. The default server does not create market data on its own.
+The Docker entry point (`python -m optionlab.server`) runs versioned Alembic migrations before starting the API and stops if they fail. When invoking Uvicorn directly, run migrations first. Use one API worker in this release. The web process runs the exit monitor every five seconds, and every accepted snapshot also invokes monitoring. The browser refreshes state every ten seconds. The default server does not create market data on its own.
 
 The entry kill switch persists in the database across restarts. Pausing entries does not close positions. Close positions explicitly or allow the deterministic exit monitor to process fresh incoming data. Paper cash, order keys, and positions survive restarts. Do not reset the database merely to clear a failed risk check.
 
