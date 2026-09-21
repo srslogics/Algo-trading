@@ -4,13 +4,14 @@ import logging
 from contextlib import asynccontextmanager
 from datetime import timedelta
 from decimal import Decimal
+from html import escape
 from math import sin
 from pathlib import Path
 from urllib.parse import urlsplit
 
 from fastapi import APIRouter, FastAPI, Query, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import select, text
 
@@ -592,7 +593,9 @@ def create_app(settings=None, database=None):
     app.mount("/static", StaticFiles(directory=web), name="static")
 
     @app.get("/", include_in_schema=False)
-    def home():
-        return FileResponse(web / "index.html")
+    def home(request: Request):
+        origin = settings.public_origin or str(request.base_url).rstrip("/")
+        html = (web / "index.html").read_text(encoding="utf-8")
+        return HTMLResponse(html.replace("__PUBLIC_ORIGIN__", escape(origin, quote=True)))
 
     return app

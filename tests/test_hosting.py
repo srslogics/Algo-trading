@@ -141,3 +141,37 @@ def test_newest_audit_pagination_has_no_overlap(client):
     older = client.get(f"/api/v1/audit?newest=true&before_id={recent[-1]['id']}").json()["events"]
     assert recent[0]["id"] > recent[1]["id"] > older[0]["id"]
     assert len(recent) + len(older) == 3
+
+
+def test_public_share_preview_uses_https_origin_without_login(settings, database):
+    import struct
+    from html.parser import HTMLParser
+
+    class Metadata(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.tags = {}
+
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if tag == "meta":
+                self.tags[attrs.get("property", attrs.get("name"))] = attrs.get("content")
+
+    with TestClient(
+        create_app(hosted(settings), database), base_url=ORIGIN.replace("https", "http")
+    ) as client:
+        response = client.get("/", headers={"User-Agent": "WhatsApp/2"})
+        assert response.status_code == 200
+        parser = Metadata()
+        parser.feed(response.text)
+        assert parser.tags["og:url"] == ORIGIN + "/"
+        assert parser.tags["og:image"] == ORIGIN + "/static/share-card.png"
+        assert parser.tags["twitter:card"] == "summary_large_image"
+        assert "__PUBLIC_ORIGIN__" not in response.text
+        assert TEST_KEY not in response.text
+        preview = client.get(parser.tags["og:image"])
+        assert preview.status_code == 200
+        assert preview.headers["content-type"] == "image/png"
+        assert preview.content[:8] == b"\x89PNG\r\n\x1a\n"
+        assert struct.unpack(">II", preview.content[16:24]) == (1200, 630)
+        assert client.get("/api/v1/overview").status_code == 401
