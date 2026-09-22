@@ -165,7 +165,7 @@ def test_public_share_preview_uses_https_origin_without_login(settings, database
         parser = Metadata()
         parser.feed(response.text)
         assert parser.tags["og:url"] == ORIGIN + "/"
-        assert parser.tags["og:image"] == ORIGIN + "/static/share-card.png"
+        assert parser.tags["og:image"] == ORIGIN + "/static/share-card.png?v=3"
         assert parser.tags["twitter:card"] == "summary_large_image"
         assert "__PUBLIC_ORIGIN__" not in response.text
         assert TEST_KEY not in response.text

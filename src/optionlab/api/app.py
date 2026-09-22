@@ -108,7 +108,7 @@ def create_app(settings=None, database=None):
         db.engine.dispose()
 
     app = FastAPI(
-        title="OptionLab API",
+        title="Murarka Capital API",
         version="0.2.0",
         lifespan=lifespan,
         description="Paper-only modular options platform. All monetary values are decimal strings.",

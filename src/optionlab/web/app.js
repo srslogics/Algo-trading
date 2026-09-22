@@ -1070,7 +1070,7 @@ function navigate(focus = false) {
   html("page-title", esc(title) + "<span>.</span>");
   text("page-eyebrow", eyebrow);
   text("page-description", description);
-  document.title = label + " — OptionLab";
+  document.title = label + " — Murarka Capital";
   const primary = $("page-primary");
   const primaryAction =
     route === "market"
@@ -1282,7 +1282,7 @@ const actions = {
   },
   "export-chain": () =>
     download(
-      "optionlab-chain.csv",
+      "murarka-capital-chain.csv",
       csv([
         [
           "Instrument",
@@ -1317,7 +1317,7 @@ const actions = {
     ),
   "export-orders": () =>
     download(
-      "optionlab-paper-orders.csv",
+      "murarka-capital-paper-orders.csv",
       csv([
         [
           "ID",
@@ -1344,7 +1344,7 @@ const actions = {
     ),
   "export-backtest": () =>
     download(
-      "optionlab-backtest-" + state.backtestId + ".json",
+      "murarka-capital-backtest-" + state.backtestId + ".json",
       JSON.stringify(
         state.backtests.find((r) => r.id === state.backtestId),
         null,
