@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fafafa"><meta name="description" content="PeopleOS recruitment and HR workspace, from candidate conversation to employee onboarding."><title>PeopleOS — People operations</title><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2321242d'/%3E%3Cpath d='M18 46V18h15c17 0 17 20 0 20H26' stroke='white' stroke-width='6' fill='none'/%3E%3C/svg%3E"><link rel="stylesheet" href="styles.css?v=7"><script type="module" src="app.js?v=7"></script></head>
+<body><section id="login-view" class="login-view" role="main" aria-label="Demo sign-in">
+  <div class="login-story">
+    <div class="brand login-brand"><span class="brandmark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 25V7h10c11 0 11 13 0 13h-4" fill="none" stroke="currentColor" stroke-width="3.5"/></svg></span><span>PeopleOS</span></div>
+    <div class="login-story-content"><p class="login-eyebrow">TALENT &amp; PEOPLE OPERATIONS</p><h2>From first conversation<br> to first day.</h2><p class="login-story-description">A considered approach to hiring.<br>One workspace for the people behind it.</p>
+      <div class="login-journey" aria-label="Recruitment journey"><div><span>01</span><strong>Connect</strong><small>Candidate conversations</small></div><div><span>02</span><strong>Hire</strong><small>Informed decisions</small></div><div><span>03</span><strong>Welcome</strong><small>A thoughtful first day</small></div></div>
+    </div>
+    <p class="login-story-footer">Built around people. Designed for clarity.</p>
+  </div>
+  <div class="login-main">
+    <div class="login-topline"><span>Northstar Studio</span><span class="login-demo-label">Interactive demo</span></div>
+    <div class="login-form-wrap">
+      <div class="login-workspace-icon" aria-hidden="true">N</div><h1 id="login-heading" tabindex="-1">Welcome back.</h1><p class="login-subtitle">Sign in to your people workspace.</p>
+      <form id="login-form" aria-labelledby="login-heading">
+        <fieldset id="login-fields" disabled>
+        <label class="field" for="login-email">Work email</label><input id="login-email" name="email" type="email" autocomplete="username" inputmode="email" autocapitalize="none" spellcheck="false" placeholder="you@company.com" required aria-describedby="login-error">
+        <label class="field login-password-label" for="login-password">Password</label><div class="login-password-wrap"><input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required aria-describedby="login-error"><button type="button" id="password-toggle" data-action="toggle-password" aria-label="Show password" aria-controls="login-password" aria-pressed="false">Show</button></div>
+        <p id="login-error" class="login-error" role="alert"></p>
+        <button type="submit" class="btn primary login-submit">Sign in <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg></button>
+        </fieldset>
+      </form>
+      <div class="login-demo-access"><div class="login-demo-heading"><strong>Explore the demo</strong><button type="button" class="text-btn" data-action="fill-demo">Use demo credentials <span aria-hidden="true">↗</span></button></div><dl><div><dt>Email</dt><dd>aarav@northstar.example</dd></div><div><dt>Password</dt><dd>PeopleOS2026</dd></div></dl><p>Demo access only. No real accounts are connected.</p></div>
+    </div>
+    <p class="login-footer">PeopleOS <span>Fictional workspace · For demonstration</span></p>
+  </div>
+</section>
+<noscript><p class="login-no-script">Enable JavaScript to explore this interactive demo.</p></noscript>
+<div id="workspace-shell" hidden><a class="skip" href="#main">Skip to content</a>
+<aside class="sidebar" aria-label="Main navigation"><a href="#overview" class="brand" aria-label="PeopleOS overview"><span class="brandmark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 25V7h10c11 0 11 13 0 13h-4" fill="none" stroke="currentColor" stroke-width="3.5"/></svg></span><span>PeopleOS<span class="brand-detail">Talent & people</span></span></a>
+<div class="workspace"><span class="org-icon">N</span><div><strong>Northstar Studio</strong><small>Company workspace</small></div></div><nav id="nav" aria-label="Workspace"></nav>
+<div class="sidebar-bottom"><div class="demo-tag"><span class="preview-symbol">◈</span> Demo workspace</div><p>Fictional data · resets on refresh</p><button class="reset" data-action="reset">Reset workspace</button><div class="profile"><span class="avatar">AM</span><div><strong>Aarav Mehta</strong><small>HR administrator</small></div></div></div></aside>
+<div class="app-shell"><header class="topbar"><button class="icon-button mobile-menu" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav" id="menu">☰</button><div class="breadcrumb"><span class="workspace-crumb">Workspace <span class="crumb-slash">/</span></span><strong id="crumb">Overview</strong></div><div class="top-right"><span class="today">Friday, 25 September</span><span class="top-divider"></span><button class="icon-button activity-button" aria-label="View activity" data-action="activity"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></button><span class="avatar small" aria-label="Aarav Mehta">AM</span><button class="signout-button" data-action="sign-out"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H4v16h5M14 8l4 4-4 4M8 12h10"/></svg><span>Sign out</span></button></div></header><main id="main" tabindex="-1"></main><footer><strong>PeopleOS</strong><span>Recruitment & people operations</span><span>Demo workspace · AI and communications are simulated</span></footer></div></div><dialog id="modal"><div id="modal-content"></div></dialog><div id="toast" role="status" aria-live="polite"></div></body></html>

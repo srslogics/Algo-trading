@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: peopleos-demo
+    runtime: static
+    rootDir: peopleos-render
+    buildCommand: npm run build
+    staticPublishPath: ./public
