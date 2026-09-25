@@ -45,3 +45,7 @@ Login is a browser-only demo flow, not production authentication. All candidates
 Run `npm start`, then open http://127.0.0.1:8100. Python 3 is required only for this local preview. Run `npm run build` to check JavaScript syntax. No dependency installation is needed.
 
 Render documentation: https://render.com/docs/static-sites
+
+## Link preview
+
+The page includes public Open Graph metadata and a 1200 × 630 JPEG preview at `public/peopleos-share-v1.jpg`. Its absolute image URL targets the deployed Render domain. Update the canonical and sharing URLs in `public/index.html` if that domain changes. The editable source is `design/share-card.svg`.
