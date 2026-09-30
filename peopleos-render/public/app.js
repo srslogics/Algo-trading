@@ -1,7 +1,7 @@
 import {stages, seedJobs, seedPeople, taskLabels} from "./data.js";
 
 // Public sample credentials for presentation only. This static demo has no account authentication.
-const demoAccess = {email:'aarav@northstar.example', password:'PeopleOS2026'};
+const demoAccess = {email:'aarav@reachout.example', password:'ReachOut2026'};
 const sessionKey = 'peopleos.demo-session';
 let signedIn = false;
 try { signedIn = sessionStorage.getItem(sessionKey) === 'active'; } catch { /* Offline/private mode uses memory only. */ }
@@ -151,7 +151,7 @@ function render(){
   document.querySelector('#login-view').hidden=signedIn;
   document.querySelector('#workspace-shell').hidden=!signedIn;
   if(!signedIn){
-    document.title='Sign in · PeopleOS';
+    document.title='Sign in · ReachOut+';
     document.querySelector('#main').replaceChildren();
     document.querySelector('#nav').replaceChildren();
     document.querySelector('.sidebar').classList.remove('open');
@@ -163,7 +163,7 @@ function render(){
   if(!Object.hasOwn(views,r)){r='overview';history.replaceState(null,'','#overview')}
   nav();
   document.querySelector('#crumb').textContent=r==='profile'?'Candidate profile':labels[r]||'Overview';
-  document.title=`${r==='profile'?person(selected).name:labels[r]||'Overview'} · PeopleOS`;
+  document.title=`${r==='profile'?person(selected).name:labels[r]||'Overview'} · ReachOut+`;
   document.querySelector('#main').innerHTML=views[r]();
   document.querySelector('.sidebar').classList.remove('open');
   document.querySelector('#menu').setAttribute('aria-expanded','false');

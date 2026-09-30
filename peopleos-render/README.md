@@ -1,4 +1,4 @@
-# PeopleOS — Render deployment folder
+# ReachOut+ — Render deployment folder
 
 This folder contains the complete recruitment and HR demo, including the login screen and all workspace pages. It is a static website. No database, server, API keys or environment variables are required.
 
@@ -16,7 +16,7 @@ This folder contains the complete recruitment and HR demo, including the login s
 | Publish Directory | `public` |
 | Environment variables | None |
 
-These settings serve only the PeopleOS folder. The separate trading application at the repository root does not need any changes.
+These settings serve only the ReachOut+ folder. The separate trading application at the repository root does not need any changes.
 
 Click **Deploy Static Site**. Render deploys from the connected Git repository; this ZIP is a convenient way to move the files, not a direct Render upload.
 
@@ -26,8 +26,8 @@ The optional Blueprint file is `peopleos-render/render.yaml`; select that path i
 
 Choose **Use demo credentials**, then **Sign in**.
 
-- Email: `aarav@northstar.example`
-- Password: `PeopleOS2026`
+- Email: `aarav@reachout.example`
+- Password: `ReachOut2026`
 
 Login is a browser-only demo flow, not production authentication. All candidates and company details are fictional. AI, WhatsApp and hiring communications are simulated. Demo records reset on refresh; sign-in is remembered for the browser session when storage is available. Never put real employee data or secrets into this static demo.
 
@@ -48,4 +48,4 @@ Render documentation: https://render.com/docs/static-sites
 
 ## Link preview
 
-The page includes public Open Graph metadata and a 1200 × 630 JPEG preview at `public/peopleos-share-v1.jpg`. Its absolute image URL targets the deployed Render domain. Update the canonical and sharing URLs in `public/index.html` if that domain changes. The editable source is `design/share-card.svg`.
+The page includes public Open Graph metadata and a 1200 × 630 JPEG preview at `public/reachout-share-v1.jpg`. Its absolute image URL targets the deployed Render domain. Update the canonical and sharing URLs in `public/index.html` if that domain changes. The editable source is `design/share-card.svg`.
